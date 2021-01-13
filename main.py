@@ -80,13 +80,23 @@ class Game:
         if(self.board[i][j]==0 and self.TURN==1):
             self.squares[i][j].config(image=self.icons["human"])
             self.board[i][j]=1
-            self.printBoard()
             self.TURN=-1
-            self.computerMoves()
+            self.checkGame(1)
+            self.computerMoves(1)
+            self.checkGame(-1)
+            self.printBoard()
 
-    def computerMoves(self):
+    def computerMoves(self,difficulty):
         print("the computer moved")
+        if(difficulty==1):
+            self.computerMoves1()
         self.TURN=1
+
+    def computerMoves1(self):
+        print("easy peasy")
+        i,j=self.get_rnd_mov()
+        self.squares[i][j].config(image=self.icons["computer"])
+        self.board[i][j]=-1
 
     def right_click(self,i,j,event):
         self.squares[i][j].config(image=self.icons["computer"])
@@ -103,6 +113,30 @@ class Game:
             else:
                 self.gameOverTime()
 
+    def checkGame(self,player):
+        #line
+        for i in range(self.dimensionX):
+            currentLength = 0
+            for j in range(self.dimensionY):
+                if(self.board[i][j]==player):
+                    currentLength+=1
+                    if(currentLength==5):
+                        print("SOMEONE WON")
+                else:
+                    currentLength=0
+        #column
+        for j in range(self.dimensionX):
+            currentLength = 0
+            for i in range(self.dimensionY):
+                if(self.board[i][j]==player):
+                    currentLength+=1
+                    if(currentLength==5):
+                        print("SOMEONE WON")
+                else:
+                    currentLength=0
+
+        #diagonally
+
 
     def gameOverTime(self):
         self.timeLabel['text'] ="Game Over"
@@ -114,6 +148,19 @@ class Game:
     def gameWon(self):
         self.won=1
         self.timeLabel['text'] = "You won"
+
+    def pos_moves(self):
+        moves = []
+        for i in range(len(self.board)):
+            for j in range(len(self.board[0])):
+                if self.board[i][j] == 0:
+                    moves.append((i, j))
+        return moves
+
+    def get_rnd_mov(self):
+        moves = self.pos_moves()
+        j = random.randint(0, len(moves) - 1)
+        return moves[j]
 
     #starts/restart the game
     def start_game(self):
