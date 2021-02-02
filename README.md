@@ -4,6 +4,7 @@
   The player selects the position on which he/she wants to place the next piece . <br>
   The winner must place 5 consecutive pieces horizontaly, verticaly or diagonaly in order to win . <br>
   At the beginning, the user can choose the difficulty level of the AI from 1 to 3:<br>
+  
     - level 1 makes random corect moves in the neighbourhood of the position 
     
     - level 2 uses a weak heursitic function which can lead to a computer victory only if the player 
