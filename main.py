@@ -966,7 +966,7 @@ class Game:
 
 if __name__ == '__main__':
     window = Tk()
-    window.title("Minesweeper")
+    window.title("Gomoku")
     minesweeper = Game(window)
     window.mainloop()
 
